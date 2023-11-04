@@ -1,22 +1,28 @@
-import express from "express";
-import bodyParser from "body-parser";
-import OpenAI from "openai";
-import dotenv from "dotenv";
-import cors from "cors";
+// import express from "express";
+// import bodyParser from "body-parser";
+// import OpenAI from "openai";
+// import dotenv from "dotenv";
+// import cors from "cors";
 
-const corsOptions = {
-  origin: "*",
-};
+const express = require("express");
+const bodyParser = require("body-parser");
+const OpenAI = require("openai");
+const dotenv = require("dotenv");
+const cors = require("cors");
+
+const app = express();
+app.use(bodyParser.json());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 dotenv.config();
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-
-const app = express();
-app.use(bodyParser.json());
-app.use(cors(corsOptions));
 
 app.post("/message", (req, res) => {
   const message = req.body.message;
