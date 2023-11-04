@@ -4,6 +4,12 @@ import OpenAI from "openai";
 import dotenv from "dotenv";
 import cors from "cors";
 
+const corsOptions = {
+  origin: "*",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+
 dotenv.config();
 
 const openai = new OpenAI({
@@ -12,7 +18,7 @@ const openai = new OpenAI({
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.post("/message", (req, res) => {
   const message = req.body.message;
